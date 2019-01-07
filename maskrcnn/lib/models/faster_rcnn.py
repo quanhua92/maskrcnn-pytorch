@@ -12,7 +12,7 @@ class FasterRCNN(nn.Module):
         Args:
             extractor:
         """
-        super().__init__()
+        super(FasterRCNN, self).__init__()
 
         self.extractor = extractor
         self.config = config
