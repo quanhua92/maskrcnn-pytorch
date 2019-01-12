@@ -8,9 +8,9 @@ Simple Mask RCNN implementation in Pytorch for educational purposes
 
 ## TODO:
 
-- [] Load image & Normalize with pytorch Transform
-- [] Create FasterRCNN class & FasterRCNNVGG16 subclass with extractor from torchvision.models
-- [] Implement config with yacs
-- [] Implement RPN module
-- [] Implement ROI Pooling module
-- [] Load pretrained FasterRCNNVGG16 model
+- [x] Load image & Normalize with pytorch Transform
+- [x] Implement config with yacs
+- [x] Create MaskRCNN class with extractor from torchvision.models
+- [ ] Implement RPN module
+- [ ] Implement ROI Pooling module
+- [ ] Load pretrained model
