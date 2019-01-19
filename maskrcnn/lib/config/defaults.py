@@ -7,7 +7,7 @@ _C.MODEL = CN()
 
 # IMAGENET_MODEL_NAME must be selected from this list :
 # [vgg16, squeezenet]
-_C.MODEL.IMAGENET_MODEL_NAME = "squeezenet"
+_C.MODEL.IMAGENET_MODEL_NAME = "vgg16"
 _C.MODEL.IMAGENET_MODEL_PRETRAINED = True
 
 # IMAGE

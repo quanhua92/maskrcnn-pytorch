@@ -5,6 +5,7 @@ from torchvision import models
 from maskrcnn.lib.utils.torch_utils import no_grad
 from maskrcnn.lib.data.preprocessing import mold_inputs
 from maskrcnn.lib.models.imagenet_models import initialize_imagenet_model
+from maskrcnn.lib.rpn.region_proposal_network import RPN
 
 
 class MaskRCNN(nn.Module):
@@ -35,9 +36,14 @@ class MaskRCNN(nn.Module):
         Returns:
 
         """
+
+        # Extractor
         imagenet_model = initialize_imagenet_model(model_name=config.MODEL.IMAGENET_MODEL_NAME,
                                                    use_pretrained=config.MODEL.IMAGENET_MODEL_PRETRAINED)
         self.extractor = imagenet_model.features.to(self.device)
+
+        # Region Proposal Network
+        self.rpn = RPN(1000, 512, 512).to(self.device)
 
     @no_grad
     def predict(self, images):
@@ -61,3 +67,13 @@ class MaskRCNN(nn.Module):
         features = self.extractor(molded_images)
 
         print("features", features.size())
+
+        # RPN
+        rpn_logits, rpn_probs, rpn_bbox = self.rpn(features)
+
+        print("rpn_probs", rpn_probs.size(), "rpn_bbox", rpn_bbox.size())
+
+        # ROI Pooling / ROI Align
+
+        # Classification
+
