@@ -50,14 +50,16 @@ def mold_image(image, min_dim, max_dim, padding):
     window = (0, 0, h, w)
     scale = 1.0
 
+    print("min_max_dim", min_dim, max_dim)
     # Scale the image
     if min_dim:
         scale = max(1, min_dim / min(h, w))
+        print("min_dim", min_dim, scale, min(h, w), h, w)
 
     if max_dim:
         image_max = max(h, w)
         print("image_max", image_max, scale, max_dim, round(image_max * scale))
-        if int(image_max * scale) > max_dim:
+        if round(image_max * scale) > max_dim:
             scale = max_dim / image_max
 
     new_h = round(h * scale)
