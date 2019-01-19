@@ -21,12 +21,17 @@ def test_mold_inputs_ones():
 
     assert molded_images.shape == (1, 3, cfg.IMAGE.MAX_DIM, cfg.IMAGE.MAX_DIM)
 
+    assert image_metas[0][1] == 1
+
 
 def test_mold_image():
     image_path = os.path.join("data", "COCO_val2014_000000018928.jpg")
     image = io_utils.read_image(image_path)
     molded_images, image_metas = mold_inputs([image], cfg)
 
+    print("image_metas", image_metas)
     assert image_metas.shape[0] == 1
     assert molded_images.shape[1] == 3
     assert molded_images.shape == (1, 3, cfg.IMAGE.MAX_DIM, cfg.IMAGE.MAX_DIM)
+
+    assert abs(image_metas[0][1] - 2.048) < 1e-10
