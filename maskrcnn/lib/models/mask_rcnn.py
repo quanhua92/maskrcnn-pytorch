@@ -1,6 +1,6 @@
+from __future__ import division
 import torch
 from torch import nn
-from torchvision import models
 
 from maskrcnn.lib.utils.torch_utils import no_grad
 from maskrcnn.lib.data.preprocessing import mold_inputs
