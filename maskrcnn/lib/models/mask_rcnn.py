@@ -6,6 +6,7 @@ from maskrcnn.lib.utils.torch_utils import no_grad
 from maskrcnn.lib.data.preprocessing import mold_inputs
 from maskrcnn.lib.models.imagenet_models import initialize_imagenet_model
 from maskrcnn.lib.rpn.region_proposal_network import RPN
+from maskrcnn.lib.rpn.anchors import generate_anchors
 
 
 class MaskRCNN(nn.Module):
@@ -31,6 +32,7 @@ class MaskRCNN(nn.Module):
         - Extractor: Feature Extractor
         - RPN: Region Proposal Network
 
+        - anchors: list of anchors locations
         Args:
             config:
 
@@ -44,10 +46,14 @@ class MaskRCNN(nn.Module):
         self.extractor = imagenet_model.features.to(self.device)
 
         # Create anchors
-        self.anchors = None
+        self.anchors, n_anchors_per_location = generate_anchors(scales=config.MODEL.RPN.SCALES,
+                                                                ratios=config.MODEL.RPN.RATIOS,
+                                                                anchor_stride=config.MODEL.RPN.ANCHOR_STRIDE,
+                                                                height=config.MODEL.RPN.IN_HEIGHT,
+                                                                width=config.MODEL.RPN.IN_WIDTH)
 
         # Region Proposal Network
-        self.rpn = RPN(n_anchors_per_location=1000, in_channels=512, mid_channels=512).to(self.device)
+        self.rpn = RPN(n_anchors_per_location=n_anchors_per_location, in_channels=512, mid_channels=512).to(self.device)
 
     @no_grad
     def predict(self, images):
