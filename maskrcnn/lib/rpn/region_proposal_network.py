@@ -1,6 +1,3 @@
-# a function to generate base anchors, these anchors will be generated upon maskrcnn class build()
-#    See the simple-faster-rcnn-pytorch to see how that generate with 2 for loop (compare with wannabeOG)
-
 from torch import nn
 
 

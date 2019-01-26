@@ -16,5 +16,5 @@ _C.IMAGE = CN()
 _C.IMAGE.MIN_DIM = 800
 _C.IMAGE.MAX_DIM = 1024
 
-# Images are padded so that their sizes will be (MAX_DIM x MAX_DIM)
+# Images are padded so that their sizes will be (MAX_DIM x MAX_DIM). Must be True.
 _C.IMAGE.PADDING = True

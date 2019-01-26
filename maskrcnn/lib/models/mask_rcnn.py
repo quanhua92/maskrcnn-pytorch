@@ -15,6 +15,7 @@ class MaskRCNN(nn.Module):
 
         # Modules
         self.extractor = None
+        self.anchors = None
         self.rpn = None
 
         self.config = config
@@ -42,8 +43,11 @@ class MaskRCNN(nn.Module):
                                                    use_pretrained=config.MODEL.IMAGENET_MODEL_PRETRAINED)
         self.extractor = imagenet_model.features.to(self.device)
 
+        # Create anchors
+        self.anchors = None
+
         # Region Proposal Network
-        self.rpn = RPN(1000, 512, 512).to(self.device)
+        self.rpn = RPN(n_anchors_per_location=1000, in_channels=512, mid_channels=512).to(self.device)
 
     @no_grad
     def predict(self, images):
@@ -72,6 +76,13 @@ class MaskRCNN(nn.Module):
         rpn_logits, rpn_probs, rpn_bbox = self.rpn(features)
 
         print("rpn_probs", rpn_probs.size(), "rpn_bbox", rpn_bbox.size())
+
+        # Perform proposal_layer on each image in batch
+        n_batch = features.size()[0]
+
+        for i in range(n_batch):
+            print("batch", i, rpn_probs[i].size(), rpn_bbox[i].size())
+            # proposal_layer
 
         # ROI Pooling / ROI Align
 
