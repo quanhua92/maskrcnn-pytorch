@@ -43,7 +43,7 @@ class RPN(nn.Module):
         Returns:
             rpn_logits: [N, H * W * A, 2] Anchor FG/BG classifier logits (before softmax)
             rpn_probs: [N, H * W * A, 2] Anchor FG/BG probabilities for each anchor
-            rpn_bbox: [N, H * W * A, (dy, dx, log(dy), log(dw)] Anchor bounding box offsets for each anchor
+            rpn_bbox: [N, H * W * A, (dy, dx, log(dh), log(dw)] Anchor bounding box offsets for each anchor
         """
 
         # Shared convolution base of the RPN [batch, mid_channels, height, width]
