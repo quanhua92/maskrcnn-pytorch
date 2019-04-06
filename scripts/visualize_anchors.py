@@ -6,6 +6,7 @@ from maskrcnn.lib.config import cfg as config
 #Debug
 config.MODEL.RPN.SCALES = [512]
 config.MODEL.RPN.RATIOS = [1]
+config.MODEL.RPN.ANCHOR_STRIDE = 10
 
 anchors, n_anchors_per_location = generate_anchors(scales=config.MODEL.RPN.SCALES,
                                                    ratios=config.MODEL.RPN.RATIOS,
