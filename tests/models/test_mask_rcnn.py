@@ -1,5 +1,4 @@
 import os
-import torch as th
 from maskrcnn.lib.utils import io_utils
 from maskrcnn.lib.models.mask_rcnn import MaskRCNN
 from maskrcnn.lib.config import cfg

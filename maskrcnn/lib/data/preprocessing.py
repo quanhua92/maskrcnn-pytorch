@@ -1,5 +1,5 @@
 import numpy as np
-from skimage.transform import resize
+import skimage
 from torchvision import transforms
 
 
@@ -60,7 +60,9 @@ def mold_image(image, min_dim, max_dim, padding):
 
     new_h = round(h * scale)
     new_w = round(w * scale)
-    image = resize(image, (new_h, new_w), mode='reflect', anti_aliasing=False)
+
+    image = skimage.transform.resize(image, (new_h, new_w), mode='reflect', anti_aliasing=False)
+    image = skimage.img_as_ubyte(image) # resize outputs float64 but we need uint8
 
     # Padding
     if padding:
@@ -76,7 +78,7 @@ def mold_image(image, min_dim, max_dim, padding):
 
     # normalize
     image = pytorch_normalize(image)
-
+    
     return image, window, scale, padding
 
 
